@@ -1,0 +1,6 @@
+ADDRESS_SAVED = "The address has already been saved."
+ADDRESS_EXIST = "The address already exists."
+ADDRESS_DONT_EXIST = "Address Id doesn't exist"
+FAILED_SAVED = "Failed to save address: {}"
+INNER_ERROR = "An unexpected error occurred: {}"
+INVALID_ADDRESS = "Invalid Address or Address cannot be located"

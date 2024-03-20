@@ -1,0 +1,6 @@
+SUCCESS = "Success"
+RETRIEVED = "Retrieved saved addresses"
+SAVED = "Saved an address"
+UPDATED = "Updated an address"
+DELETED = "Deleted an address"
+RETRIEVED_NEARBY = "Retrieved nearby saved addresses"

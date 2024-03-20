@@ -1,0 +1,7 @@
+ADDRESS_ID = "address_id"
+MESSAGE = "message"
+DELETED_ID = "deleted_address_id"
+ADDRESS = "address"
+LATITUDE = "latitude"
+LONGITUDE = "longitude"
+COORDINATES = "coordinates"
