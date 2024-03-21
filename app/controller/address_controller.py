@@ -41,7 +41,7 @@ class AddressController(BaseController):
         self.add_api_route("/address-nearby",
                            self.find_nearby_addresses, methods=[httpmethod.GET], response_model=GetAllAddress)
 
-    async def get_addresses(self, address_id: str = None):
+    async def get_addresses(self):
         """Get All Addresses
 
         Returns:
