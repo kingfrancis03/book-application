@@ -111,6 +111,20 @@ class AddressService:
           return self.repository.delete_address(address_id)
 
         raise ValueError(error_messages.ADDRESS_DONT_EXIST)
+    
+    def get_address(self, address_id):
+        """Get address by id
+
+        Args:
+          address_id(int): address id to get
+        Returns:
+          address(object): Address that is fetched
+        """
+        address = self.repository.get_by_id(address_id)
+        if address is not None:
+          return jsonable_encoder(address)
+
+        raise ValueError(error_messages.ADDRESS_DONT_EXIST)
 
     def get_nearby_address(self, input_coordinates, proximity):
         """Retieves Nearby Addresses
