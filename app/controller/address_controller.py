@@ -39,7 +39,6 @@ class AddressController(BaseController):
         self.add_api_route("/", self.get_addresses, methods=[httpmethod.GET], response_model=Union[SingleAddress, GetAllAddress])
         self.add_api_route("/", self.get_addresses, methods=[httpmethod.GET], response_model=GetAllAddress)
         self.add_api_route("/", self.post_address, methods=[httpmethod.POST], response_model=InputAddress)
-        self.add_api_route("/{address_id}", self.get_address, methods=[httpmethod.GET], response_model=SingleAddress)
         self.add_api_route("/{address_id}", self.put_address, methods=[httpmethod.PUT], response_model=InputAddress)
         self.add_api_route("/{address_id}", self.delete_address, methods=[httpmethod.DEL], response_model=DeleteAddress)
         self.add_api_route("/address-nearby",
@@ -55,7 +54,7 @@ class AddressController(BaseController):
         if address_id:
             try:
                 address = self.service.get_address(address_id)
-                print(address)
+
                 return Response(success_messages.SUCCESS, success_messages.UPDATED, address)
             except (ValueError, AttributeError) as error:
                 error_message = error.args[0]
@@ -66,25 +65,6 @@ class AddressController(BaseController):
         response.data = self.service.get_all_address()
 
         return response
-    
-    def get_address(self, address_id: int = Path(..., description="The ID of the address to get")):
-        """Update an Address
-        
-        Args:
-            Address Id(int):Id of the deleted Address
-        Returns:
-            Address Id(int):Id of the updated Address
-        """
-        try:
-            address = self.service.get_address(address_id)
-            print(address)
-            return Response(success_messages.SUCCESS, success_messages.UPDATED, address)
-        except (ValueError, AttributeError) as error:
-            error_message = error.args[0]
-            detail = {key_constants.MESSAGE: error_message}
-            status_code = 400 if isinstance(error, ValueError) else 404
-
-            raise HTTPException(status_code=status_code, detail=detail)
 
     def post_address(self, address: Address):
         """Add an Address
@@ -142,9 +122,8 @@ class AddressController(BaseController):
             detail = {key_constants.MESSAGE: error_message}
 
             raise HTTPException(status_code=404, detail=detail)
-    
-    
-    async def find_nearby_addresses(self, latitude: float, longitude: float, proximity: float):
+
+    def find_nearby_addresses(self, latitude: float, longitude: float, proximity: float):
         """Find Nearby Address
 
         Args:
@@ -159,7 +138,12 @@ class AddressController(BaseController):
             key_constants.LATITUDE: latitude,
             key_constants.LONGITUDE: longitude
         }
+        try:
+            return Response(success_messages.SUCCESS,
+                            success_messages.RETRIEVED_NEARBY,
+                            self.service.get_nearby_address(coordinates, proximity))
+        except ValueError as error:
+            error_message = error.args[0]
+            detail = {key_constants.MESSAGE: error_message}
 
-        return Response(success_messages.SUCCESS,
-                        success_messages.RETRIEVED_NEARBY,
-                        self.service.get_nearby_address(coordinates, proximity))
+            raise HTTPException(status_code=500, detail=detail)

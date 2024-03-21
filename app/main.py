@@ -13,7 +13,6 @@ async def log_request(request: Request, call_next):
     response = await call_next(request)
 
     return response
-
 # Initialize Controller for the routs
 address_router = AddressController("/address")
 

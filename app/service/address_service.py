@@ -135,15 +135,19 @@ class AddressService:
           Returns:
             Addresses(List):List of Address thats nearby the base location
           """
-        saved_coordinates = self.__get_saved_coordinates()
-        nearby_ids = []
-        for coordinates in saved_coordinates:
-          distance = self.geohelper.get_distance(coordinates[key_constants.COORDINATES], input_coordinates)
-          if distance < proximity:
-            nearby_ids.append(coordinates[key_constants.ADDRESS_ID])
+        try:
+            saved_coordinates = self.__get_saved_coordinates()
+            nearby_ids = []
+            for coordinates in saved_coordinates:
+                distance = self.geohelper.get_distance(coordinates[key_constants.COORDINATES], input_coordinates)
+                if distance < proximity:
+                  nearby_ids.append(coordinates[key_constants.ADDRESS_ID])
 
-        return jsonable_encoder(self.repository.get_by_ids(nearby_ids))
-
+            return jsonable_encoder(self.repository.get_by_ids(nearby_ids))
+        except ValueError as error:
+            error_message = error.args[0]
+            raise ValueError(error_message)
+       
     def __get_saved_coordinates(self):
         """Retieves Saved coordinates
 

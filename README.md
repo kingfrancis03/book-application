@@ -2,6 +2,13 @@
 
 Demonstration of my exisiting Python3 skills
 An application that reads, saves, updates, and deletes addresses
+
+My approach to this assignment involves taking an address, obtaining its coordinates, and saving it to the database. For each inputted address, I utilize the geopy's Nominatim library to extract coordinates and additional data. However, I have encountered legitimate addresses from the Philippines that throw errors because there are no recorded towns, house numbers, or streets. Therefore, I have implemented a solution to strip the inputted string address until I obtain a valid address.
+
+# Limitiations
+
+- Using the Geopy API, the saved coordinates are not accurate, some are not precise enough, resulting in a loss of about 5 to 10 meters.
+
 ## Features
 - Create, Update, Delete Adresses
 - Get List of All Address
@@ -47,6 +54,8 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    - **Description:** Get all the list of addresses saved in the database.
    - **Method:** `GET`
    - **Path:** `/address`
+   - **Query Params**
+      - `address_id`(Optional): To get a single address 
    - **Response:**
      - `200 OK`: Successful response.
      ```json
