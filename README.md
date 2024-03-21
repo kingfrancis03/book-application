@@ -154,7 +154,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    - **Query Params:**
      - `longitude`
      - `latitude`
-     - `proximity`: range of distance to be search within the area 
+     - `proximity`: range of distance to be search within the area measured by kilometer
    - **Response:**
      - `200 OK`: Successful response.
      ```json

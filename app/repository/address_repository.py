@@ -1,7 +1,6 @@
 from .base_repository import BaseRepository
 from ..model.address_model import Address
 
-
 class AddressRepository(BaseRepository):
     """
     Address Repositry that handles the communication with the database
