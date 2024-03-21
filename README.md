@@ -112,6 +112,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
           "data": {
             "address_id": 0
         }
+        }
      ```
      - Failed response.
      ```json
@@ -123,7 +124,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
      ```
   4. ### Delete Address
 
-   - **Description:** Update address with addressID
+   - **Description:** Delete address with addressID
    - **Method:** `DELETE`
    - **Path:** `/address/<address_id>`
    - **Response:**
@@ -134,6 +135,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
           "message": "string",
           "data": {
             "deleted_address_id": 0
+          }
         }
      ```
      - Failed response.
@@ -149,6 +151,10 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    - **Description:** Find Address Nearby with coordinates and proximity
    - **Method:** `GET`
    - **Path:** `/address/address-nearby`
+   - **Query Params:**
+     - `longitude`
+     - `latitude`
+     - `proximity`: range of distance to be search within the area 
    - **Response:**
      - `200 OK`: Successful response.
      ```json
